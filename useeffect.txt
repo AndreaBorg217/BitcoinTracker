@@ -1,0 +1,16 @@
+  useEffect(() => {
+    const fetchData = async () => {
+      const general = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=true')
+      setGeneral(JSON.parse(general.data));
+
+      const year = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=365&interval=daily')
+      setYearData(year.data);
+
+      const month = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=30&interval=daily')
+      setMonthData(month.data);
+
+      const day = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=1&interval=hourly')
+      setDayData(day.data);
+    }
+    fetchData()
+  }, [])
